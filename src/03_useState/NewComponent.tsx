@@ -1,37 +1,39 @@
 import React from "react";
 
-import {FilterType} from "../App";
+import {FilterType} from '../App'
+import {UniButton} from "./UniButton";
 
 type NewComponentType = {
-    money: Array<MoneyArray>
-    callback: (banknots: FilterType) => void
+    filteredMoney: Array<FilteredMoneyArrayType>
+    callback: (currency: FilterType) => void
 }
 
-type MoneyArray = {
-    banknots: string,
-    value: number,
-    number: string,
+type FilteredMoneyArrayType = {
+    currency: string
+    value: number
+    number: string
 }
 
 export const NewComponent = (props: NewComponentType) => {
     return (
         <div>
             <ul>
-                {props.money.map((obj, index) => {
+                {props.filteredMoney.map((item) => {
                     return (
-                        <li key={index}>
-                            <span>{obj.banknots} </span>
-                            <span>{obj.value} </span>
-                            <span>{obj.number}   </span>
+                        <li>
+                            <span>{item.currency} </span>
+                            <span>{item.value} </span>
+                            <span>{item.number} </span>
                         </li>
                     )
                 })}
             </ul>
-            <div>
-                <button onClick={() => props.callback('All')}>All</button>
-                <button onClick={() => props.callback('Dollars')}>Dollars</button>
-                <button onClick={() => props.callback('Rubles')}>Rubles</button>
+            <div style={{marginLeft: 40}}>
+                <UniButton name={'All'} callback={() => props.callback('All')}/>
+                <UniButton name={'Dollars'} callback={() => props.callback('Dollars')}/>
+                <UniButton name={'Rubles'} callback={() => props.callback('Rubles')}/>
             </div>
         </div>
     )
 }
+
